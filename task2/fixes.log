@@ -1,19 +1,27 @@
+Ошибка №1
 main.c:9:9: фатальная ошибка: studio.h: Нет такого файла или каталога
     9 | #include<studio.h>
       |         ^~~~~~~~~~
 компиляция прервана.
 make: *** [Makefile:5: main.o] Ошибка 1
-
-
-main.c: В функции «Main»:
+Исходная строка:
+#include<studio.h>
+Исправленная строка:
+#include <stdio.h>
+Ошибка №2
 main.c:21:30: ошибка: expected «;» before «printf»
    21 |     scanf("%d", &flat_number)
       |                              ^
       |                              ;
-......
-   24 |     printf("Введите число квартир на каждом этаже: ");
-      |     ~~~~~~                    
+Исходная строка: scanf("%d", &flat_number)
+Исправленная строка:scanf("%d", &flat_number);
+Ошибка №3
 main.c:28:12: предупреждение: слишком много аргументов для форматирования [-Wformat-extra-args]
    28 |     printf("Вам нужно подняться на %d этаж\n",
       |            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 make: *** [Makefile:5: main.o] Ошибка 1
+Исходная строка:
+printf("Вам нужно подняться на %d этаж\n",
+           flat_number / flats_per_floor, flat_number);
+Исправленная строка:
+printf("Вам нужно подняться на %d этаж\n", (flat_number - 1) / flats_per_floor +1);

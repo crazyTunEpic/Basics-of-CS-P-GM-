@@ -11,6 +11,7 @@
 int main()
 {
     /* Выводим приветствие  */
+
     fprintf(stdout, "Hello, students!\n");
 
     return 0;
