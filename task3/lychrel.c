@@ -1,11 +1,3 @@
-/**
- * lychrel.c -- программа "Problem 196"
- *
- * Copyright (c) 2024, Marina Gruzdeva <mbsmpe@yandex.ru>
- *
- * This code is licensed under MIT license.
- */
-
 #include <stdio.h>
 #include <limits.h>
 
@@ -23,7 +15,8 @@ int main()
 {
     /* Получаем значение верхней границы последовательности */
     long last_number;
-    printf("Введите верхнюю границу отрезка поиска чисел Лишрел: ");
+    printf
+        ("Введите верхнюю границу отрезка поиска чисел Лишрел: ");
     scanf("%ld", &last_number);
 
     /* Выводим все кандидаты в числа Лишрел до last_number */
@@ -63,18 +56,20 @@ int is_lychrel_candidate(long number)
         /* Вычисляем обращение суммы */
         r = reverse(n);
 
-    /* ... пока число не совпадает с обращением */
+        /* ... пока число не совпадает с обращением */
     } while (n != r);
 
     /* Считаем, что проверяемое число - не число Лишрел и завершаем проверку */
     return 0;
 }
 
-long reverse(long n)
-{
+long reverse(long n) {
     long r = 0;
 
     do {
+        if (r > (LONG_MAX - n % 10) / 10) {
+            return -1; // Переполнение
+        }
         r = r * 10 + n % 10;
         n /= 10;
     } while (n > 0);
