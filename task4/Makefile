@@ -1,13 +1,16 @@
+CC = gcc
+CFLAGS = -Wall -Wextra -std=c11
+
 all: primes
 
-primes: primes.o
-	gcc -o primes  primes.o
+primes: primes.o goldbach.o
+	$(CC) $(CFLAGS) -o primes primes.o goldbach.o
+
+goldbach.o: goldbach.c
+	$(CC) $(CFLAGS) -c goldbach.c
 
 primes.o: primes.c
-	gcc -g -O0 -c -Wall -Wextra primes.c
+	$(CC) $(CFLAGS) -c primes.c
+
 clean:
-	rm *.o primes
-indent:
-	indent -kr -nut primes.c
-
-
+	rm -f *.o primes

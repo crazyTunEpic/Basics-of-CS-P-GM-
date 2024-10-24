@@ -2,9 +2,11 @@ lychrel: lychrel.o
 	gcc -o lychrel  lychrel.o
 
 lychrel.o: lychrel.c
-	gcc -g -O0 -c -Wall -Wextra lychrel.c
+	gcc -g -O0 -c -Wall -Wextra -std=c99  lychrel.c
+
 clean:
-	rm task3 *.o
+	rm lychrel lychrel.o
+
 indent:
 	indent -kr -nut lychrel.c
 

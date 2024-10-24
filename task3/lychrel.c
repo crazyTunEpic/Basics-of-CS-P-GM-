@@ -1,3 +1,11 @@
+/**
+ * lychrel.c -- программа для нахождения числа Лишрел
+ *
+ * Copyright (c) 2024, Marina Gruzdeva <mbsmpe@yandex.ru>
+ *
+ * This code is licensed under MIT license.
+ */
+
 #include <stdio.h>
 #include <limits.h>
 
@@ -41,7 +49,15 @@ void show_lychrel_candidates(long last_number)
 int is_lychrel_candidate(long number)
 {
     long n = number;
-    long r = reverse(n);
+    long r;
+
+    if (n==0)
+    {return 0;}
+    
+    r = reverse(n);
+    if (r == -1) {
+	return 1;
+    }
 
     /* Повторяем ... */
     do {
@@ -56,23 +72,35 @@ int is_lychrel_candidate(long number)
         /* Вычисляем обращение суммы */
         r = reverse(n);
 
+	if (r == -1) {
+	    return 1;
+	}
+
         /* ... пока число не совпадает с обращением */
-    } while (n != r);
+    } while (n !=r);
 
     /* Считаем, что проверяемое число - не число Лишрел и завершаем проверку */
     return 0;
 }
 
-long reverse(long n) {
+long reverse(long n)
+{
+    if (n < 0) {
+	return -1;
+    }
     long r = 0;
-
     do {
-        if (r > (LONG_MAX - n % 10) / 10) {
-            return -1; // Переполнение
-        }
-        r = r * 10 + n % 10;
-        n /= 10;
-    } while (n > 0);
+	if (r > LONG_MAX/10 || (r==LONG_MAX/10&&n%10>7)){
+	    return -1;
+	}
+	r =  r * 10 + n % 10;
+	n /= 10;
+    }
+    while (n > 0);
 
     return r;
+    
+	
+    
+
 }
