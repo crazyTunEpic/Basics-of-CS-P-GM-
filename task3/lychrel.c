@@ -51,8 +51,9 @@ int is_lychrel_candidate(long number)
     long n = number;
     long r;
 
-    if (n==0)
-    {return 0;}
+    if (n==0) {
+	return 0;
+    }
     
     r = reverse(n);
     if (r == -1) {
@@ -77,7 +78,8 @@ int is_lychrel_candidate(long number)
 	}
 
         /* ... пока число не совпадает с обращением */
-    } while (n !=r);
+    }
+    while (n !=r);
 
     /* Считаем, что проверяемое число - не число Лишрел и завершаем проверку */
     return 0;
@@ -90,17 +92,19 @@ long reverse(long n)
     }
     long r = 0;
     do {
+	/*r * 10 + n%10>LONG_MAX */
+	/* r * 10 > LONG_MAX - n%10 */
+	/*r > (LONG_MAX - n%10)/10 */
 	if (r > LONG_MAX/10 || (r==LONG_MAX/10&&n%10>7)){
+
 	    return -1;
 	}
+	
 	r =  r * 10 + n % 10;
 	n /= 10;
     }
+    
     while (n > 0);
 
     return r;
-    
-	
-    
-
 }
