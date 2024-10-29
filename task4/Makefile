@@ -1,16 +1,16 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c11
+CFLAGS = -Wall -Wextra
 
-all: primes
+all: primes goldbach
 
-primes: primes.o goldbach.o
-	$(CC) $(CFLAGS) -o primes primes.o goldbach.o
+primes: primes.o calculate_primes.o
+	$(CC) $(CFLAGS) -o primes primes.o calculate_primes.o
 
-goldbach.o: goldbach.c
-	$(CC) $(CFLAGS) -c goldbach.c
+goldbach: goldbach.o calculate_primes.o
+	$(CC) $(CFLAGS) -o goldbach goldbach.o calculate_primes.o
 
-primes.o: primes.c
-	$(CC) $(CFLAGS) -c primes.c
+%.o: %.c calculate_primes.h
+	$(CC) $(CFLAGS) -c $<
 
 clean:
-	rm -f *.o primes
+	rm -f *.o primes goldbach
