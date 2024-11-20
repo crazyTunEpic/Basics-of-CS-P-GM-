@@ -3,7 +3,7 @@
 #include <string.h>
 #include "rational.h"
 
-// Преобразование строки в дробь
+// Преобразование строки в рациональное число
 rational_t string_to_rational(const char *str) {
     long n = 0, d = 1;
     if (sscanf(str, "%ld/%ld", &n, &d) == 2) {
@@ -14,11 +14,11 @@ rational_t string_to_rational(const char *str) {
     }
 }
 
-// Вывод дроби
+// Вывод рационального числа
 void print_rational(rational_t r) {
     if (rat_denom(r) == 1) {
-        printf("%ld\n", rat_num(r)); // выводим только числитель, если знаменатель равен 1
+        printf("%ld\n", rat_num(r));
     } else {
-        printf("%ld/%u\n", rat_num(r), (unsigned int)rat_denom(r)); // Правильный формат для unsigned
+        printf("%ld/%u\n", rat_num(r), rat_denom(r));
     }
 }

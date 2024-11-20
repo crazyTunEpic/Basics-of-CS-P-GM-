@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "rational.h"
 
-// Нахождение НОД алгоритмом Эвклида
+// Функция для нахождения НОД
 int gcd(int a, int b) {
     while (b != 0) {
         int temp = b;
@@ -12,21 +12,18 @@ int gcd(int a, int b) {
     return a;
 }
 
-
+// Конструктор рационального числа
 rational_t rational(long n, long d) {
-   
     if (d == 0) {
-        printf("Ошибка: деление на ноль.\n");
-        exit(1);
-    }
-
-   
-    if (n == 0) {
-        return (rational_t){0, 1}; 
+        fprintf(stderr, "Ошибка: деление на ноль.\n");
+        exit(EXIT_FAILURE);
     }
     
-   
-    int sign = (n < 0) ^ (d < 0 ? -1 : 1);
+    if (n == 0) {
+        return (rational_t){0, 1}; // каноническое представление 0
+    }
+
+    int sign = (n < 0 ^ d < 0) ? -1 : 1;
     n = abs(n);
     d = abs(d);
     
@@ -35,12 +32,11 @@ rational_t rational(long n, long d) {
     return (rational_t){sign * (n / divisor), (unsigned int)(d / divisor)};
 }
 
-// Возвращает числ
+// Функции для получения числителя и знаменателя
 long rat_num(rational_t r) {
     return r.num;
 }
 
-// Возвращает знам
 long rat_denom(rational_t r) {
     return r.denom;
 }

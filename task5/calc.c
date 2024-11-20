@@ -15,15 +15,7 @@ int main() {
     char input[100];
     rational_t last_result = {0, 1}; // хранит последний результат
 
-    printf("Введите выражение (например: 1/2 + 3/4) или 'exit' для выхода:\n");
-
-    // Читаем выражения
     while (fgets(input, sizeof(input), stdin)) {
-        // Проверка, хочет ли пользователь выйти
-        if (strncmp(input, "exit", 4) == 0) {
-            break;
-        }
-
         char op;
         char op1[20], op2[20];
 
@@ -48,6 +40,7 @@ int main() {
 
         rational_t result;
 
+        // Выполняем арифметическую операцию
         switch (op) {
             case '+':
                 result = rat_add(a, b);
@@ -70,7 +63,5 @@ int main() {
         printf("= ");
         print_rational(result);
     }
-
-    printf("Выход из программы.\n");
     return 0;
 }
