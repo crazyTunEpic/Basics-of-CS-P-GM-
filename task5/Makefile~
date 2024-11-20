@@ -1,0 +1,16 @@
+CC = gcc
+CFLAGS = -g -Wall
+RATIONAL_DIR = rational
+LIBRARY = librational.a
+
+all: calc
+
+calc: calc.o $(RATIONAL_DIR)/$(LIBRARY)
+	$(CC) -o calc calc.o -L$(RATIONAL_DIR) -l rational
+
+calc.o: calc.c
+	$(CC) $(CFLAGS) -c calc.c
+
+clean:
+	rm -f *.o calc
+	cd $(RATIONAL_DIR) && $(MAKE) clean

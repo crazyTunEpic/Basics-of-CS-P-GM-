@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "rational.h"
+#include "rat_math.c"
+#include "rat_io.c"
+
+int main() {
+    char input[100];
+    rational_t last_result = {0, 1}; // хранит последний результат
+
+    // Читаем выражения
+    while (fgets(input, sizeof(input), stdin)) {
+        char op;
+        char op1[20], op2[20];
+
+        // Считываем строку
+        if (sscanf(input, "%s %c %s", op1, &op, op2) != 3) {
+            printf("Ошибка ввода, попробуйте снова.\n");
+            continue;
+        }
+
+        rational_t a, b;
+
+        // Если первое значение "last"
+        if (strcmp(op1, "last") == 0) {
+            a = last_result;
+        } else {
+            a = string_to_rational(op1);
+        }
+
+        // Если второе значение "last"
+        if (strcmp(op2, "last") == 0) {
+            b = last_result;
+        } else {
+            b = string_to_rational(op2);
+        }
+
+        rational_t result;
+
+        // В зависимости от оператора производим действия
+        if (op == '+') {
+            result = rat_add(a, b);
+        } else if (op == '-') {
+            result = rat_sub(a, b);
+        } else if (op == '*') {
+            result = rat_mul(a, b);
+        } else if (op == '/') {
+            result = rat_div(a, b);
+        } else {
+            printf("Неизвестная операция: %c\n", op);
+            continue;
+        }
+
+        last_result = result; // Сохраняем результат
+        printf("= ");
+        print_rational(result);
+    }
+    return 0;
+}
